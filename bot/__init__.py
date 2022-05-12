@@ -143,16 +143,14 @@ try:
 except:
     pass
 try:
-    BOT_TOKEN = getConfig('BOT_TOKEN')
-    parent_id = getConfig('GDRIVE_FOLDER_ID')
     AUTO_DELETE_MESSAGE_DURATION = int(getConfig('AUTO_DELETE_MESSAGE_DURATION'))
-    OWNER_ID = int(getConfig('OWNER_ID'))
+    BOT_TOKEN = getConfig('BOT_TOKEN')
+    DOWNLOAD_DIR = "/usr/src/app/downloads/"
     DOWNLOAD_STATUS_UPDATE_INTERVAL = int(getConfig('DOWNLOAD_STATUS_UPDATE_INTERVAL'))
+    OWNER_ID = int(getConfig('OWNER_ID'))
+    parent_id = getConfig('GDRIVE_FOLDER_ID')
     TELEGRAM_API = getConfig('TELEGRAM_API')
     TELEGRAM_HASH = getConfig('TELEGRAM_HASH')
-    ENV = "ANYTHING"
-    IS_VPS = False
-    DOWNLOAD_DIR = "/usr/src/app/downloads/"
 except KeyError as e:
     LOGGER.error("One or more env variables missing! Exiting now")
     exit(1)
