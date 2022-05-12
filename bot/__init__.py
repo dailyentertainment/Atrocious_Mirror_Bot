@@ -90,32 +90,6 @@ trackerslist = "\n\n".join(trackerslist)
 get_client().application.set_preferences({"add_trackers":f"{trackerslist}"})
 """
 
-aria2 = aria2p.API(
-    aria2p.Client(
-        host="http://localhost",
-        port=6800,
-        secret="",
-    )
-)
-
-def aria2c_init():
-    try:
-        logging.info("Initializing Aria2c")
-        link = "https://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso.torrent"
-        aria2.add_uris([link], {'dir': DOWNLOAD_DIR})
-        time.sleep(3)
-        downloads = aria2.get_downloads()
-        time.sleep(30)
-        for download in downloads:
-            aria2.remove([download], force=True, files=True)
-    except Exception as e:
-        logging.error(f"Aria2c initializing error: {e}")
-        pass
-
-if not os.path.isfile(".restartmsg"):
-    threading.Thread(target=aria2c_init).start()
-    time.sleep(1)
-
 
 DOWNLOAD_DIR = None
 BOT_TOKEN = None
@@ -526,3 +500,29 @@ updater = tg.Updater(token=BOT_TOKEN)
 bot = updater.bot
 dispatcher = updater.dispatcher
 job_queue = updater.job_queue
+
+aria2 = aria2p.API(
+    aria2p.Client(
+        host="http://localhost",
+        port=6800,
+        secret="",
+    )
+)
+
+def aria2c_init():
+    try:
+        logging.info("Initializing Aria2c")
+        link = "https://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso.torrent"
+        aria2.add_uris([link], {'dir': DOWNLOAD_DIR})
+        time.sleep(3)
+        downloads = aria2.get_downloads()
+        time.sleep(30)
+        for download in downloads:
+            aria2.remove([download], force=True, files=True)
+    except Exception as e:
+        logging.error(f"Aria2c initializing error: {e}")
+        pass
+
+if not os.path.isfile(".restartmsg"):
+    threading.Thread(target=aria2c_init).start()
+    time.sleep(1)
