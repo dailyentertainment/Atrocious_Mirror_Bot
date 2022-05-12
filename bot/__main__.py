@@ -325,6 +325,8 @@ botcmds = [
         (f'{BotCommands.HelpCommand}','Get detailed help')
     ]
 
+def main():
+    # bot.set_my_commands(botcmds)
 
     start_handler = CommandHandler(BotCommands.StartCommand, start, run_async=True)
     ping_handler = CommandHandler(BotCommands.PingCommand, ping,
