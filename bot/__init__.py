@@ -63,12 +63,15 @@ if not os.path.exists('.netrc'):
     subprocess.run(["touch", ".netrc"])
 subprocess.run(["cp", ".netrc", "/root/.netrc"])
 subprocess.run(["chmod", "600", ".netrc"])
+subprocess.run(["chmod", "+x", "aria.sh"])
+subprocess.run(["./aria.sh"], shell=True)
 time.sleep(0.5)
 
 Interval = []
 DRIVES_NAMES = []
 DRIVES_IDS = []
 INDEX_URLS = []
+
 
 try:
     if bool(getConfig('_____REMOVE_THIS_LINE_____')):
