@@ -16,6 +16,7 @@ from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
 from .helper.ext_utils.telegraph_helper import telegraph
 from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time
+from bot.helper.ext_utils import fs_utils
 from .helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper import button_build
 from .modules import authorize, list, clone, delete, count, leech_settings, search
@@ -301,6 +302,21 @@ botcmds = [
 
 def main():
     # bot.set_my_commands(botcmds)
+    fs_utils.start_cleanup()
+    if IS_VPS:
+        asyncio.new_event_loop().run_until_complete(start_server_async(PORT))
+    # Check if the bot is restarting
+    if os.path.isfile(".restartmsg"):
+        with open(".restartmsg") as f:
+            chat_id, msg_id = map(int, f)
+        bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
+        os.remove(".restartmsg")
+    elif OWNER_ID:
+        try:
+            text = "<b>Atrocious Mirror Bot Restarted!</b>"
+            bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML) 
+        except Exception as e:
+            LOGGER.warning(e)
 
     start_handler = CommandHandler(BotCommands.StartCommand, start, run_async=True)
     help_handler = CommandHandler(BotCommands.HelpCommand, bot_help, run_async=True)
