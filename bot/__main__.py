@@ -78,18 +78,18 @@ def start(update, context):
                         ],
                         [
                             InlineKeyboardButton(
-                                text="☯️ Cloud Group",
-                                url="https://t.me/+WKZqyWNHpLViMmI1",
+                                text="☯️ Mirror Group",
+                                url="https://t.me/+Xwwi7toV4YsyMWJl",
                             ),
                             InlineKeyboardButton(
-                                text="✳ Find More",
+                                text="✳ Repo & More",
                                 url="https://github.com/AL-Noman21",
                             ),
                         ],
                         [
                             InlineKeyboardButton(
                                 text="🕎 Atrocious Bot Owner",
-                                url="https://t.me/smexynos7870",
+                                url="https://t.me/ItsBitDefender",
                             ),
                         ],
                     ],
@@ -115,7 +115,7 @@ I can mirror all your links to Google drive. But in pm or unauthorized group you
 For help and commands press /help .
 """
 
-buttons = [[InlineKeyboardButton(text="☸ Cloud Drive Group", url="https://t.me/+WKZqyWNHpLViMmI1"),],
+buttons = [[InlineKeyboardButton(text="☸ Mirror Group", url="https://t.me/+Xwwi7toV4YsyMWJl"),],
 
           [InlineKeyboardButton(text="✅ Add me in your group", url="t.me/Atrocious_Mirror_Bot?startgroup=true",)],]
 
