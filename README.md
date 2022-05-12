@@ -1,3 +1,5 @@
+# This repo is under modification. 
+
 ✳ Atrocious_Mirror_Bot.
 
 ✳ Before deploying you must need to collect all required config and token.pickle and credentials.json. 
