@@ -209,7 +209,7 @@ try:
     if len(STATUS_LIMIT) == 0:
         raise KeyError
     else:
-        STATUS_LIMIT = int(getConfig('STATUS_LIMIT'))
+        STATUS_LIMIT = int(STATUS_LIMIT)
 except KeyError:
     STATUS_LIMIT = None
 try:
@@ -309,16 +309,16 @@ try:
     if len(BUTTON_FOUR_NAME) == 0 or len(BUTTON_FOUR_URL) == 0:
         raise KeyError
 except KeyError:
-    BUTTON_FOUR_NAME = "👨‍👩‍👦‍👦 Group"
-    BUTTON_FOUR_URL = "https://t.me/+WKZqyWNHpLViMmI1"
+    BUTTON_FOUR_NAME = None
+    BUTTON_FOUR_URL = None
 try:
     BUTTON_FIVE_NAME = getConfig('BUTTON_FIVE_NAME')
     BUTTON_FIVE_URL = getConfig('BUTTON_FIVE_URL')
     if len(BUTTON_FIVE_NAME) == 0 or len(BUTTON_FIVE_URL) == 0:
         raise KeyError
 except KeyError:
-    BUTTON_FIVE_NAME = "🏠 Repo"
-    BUTTON_FIVE_URL = "https://github.com/AL-Noman21/Atrocious_Mirror_Bot"
+    BUTTON_FIVE_NAME = None
+    BUTTON_FIVE_URL = None
 try:
     BUTTON_SIX_NAME = getConfig('BUTTON_SIX_NAME')
     BUTTON_SIX_URL = getConfig('BUTTON_SIX_URL')
@@ -331,12 +331,7 @@ try:
     STOP_DUPLICATE = getConfig('STOP_DUPLICATE')
     STOP_DUPLICATE = STOP_DUPLICATE.lower() == 'true'
 except KeyError:
-    STOP_DUPLICATE = True
-try:
-    IGNORE_PENDING_REQUESTS = getConfig("IGNORE_PENDING_REQUESTS")
-    IGNORE_PENDING_REQUESTS = IGNORE_PENDING_REQUESTS.lower() == 'true'
-except KeyError:
-    IGNORE_PENDING_REQUESTS = False
+    STOP_DUPLICATE = False
 try:
     VIEW_LINK = getConfig('VIEW_LINK')
     VIEW_LINK = VIEW_LINK.lower() == 'true'
@@ -376,6 +371,23 @@ except KeyError:
     SHORTENER = None
     SHORTENER_API = None
 try:
+    IGNORE_PENDING_REQUESTS = getConfig("IGNORE_PENDING_REQUESTS")
+    IGNORE_PENDING_REQUESTS = IGNORE_PENDING_REQUESTS.lower() == 'true'
+except KeyError:
+    IGNORE_PENDING_REQUESTS = False
+try:
+    BASE_URL = getConfig('BASE_URL_OF_BOT')
+    if len(BASE_URL) == 0:
+        raise KeyError
+except KeyError:
+    logging.warning('BASE_URL_OF_BOT not provided!')
+    BASE_URL = None
+try:
+    IS_VPS = getConfig('IS_VPS')
+    IS_VPS = IS_VPS.lower() == 'true'
+except KeyError:
+    IS_VPS = False
+try:
     AS_DOCUMENT = getConfig('AS_DOCUMENT')
     AS_DOCUMENT = AS_DOCUMENT.lower() == 'true'
 except KeyError:
@@ -390,13 +402,6 @@ try:
     QB_SEED = QB_SEED.lower() == 'true'
 except KeyError:
     QB_SEED = False
-try:
-    BASE_URL = getConfig('BASE_URL_OF_BOT')
-    if len(BASE_URL) == 0:
-        raise KeyError
-except KeyError:
-    logging.warning('BASE_URL_OF_BOT not provided!')
-    BASE_URL = None
 try:
     CUSTOM_FILENAME = getConfig('CUSTOM_FILENAME')
     if len(CUSTOM_FILENAME) == 0:
