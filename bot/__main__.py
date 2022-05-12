@@ -318,6 +318,8 @@ def main():
         except Exception as e:
             LOGGER.warning(e)
 
+
+
     start_handler = CommandHandler(BotCommands.StartCommand, start, run_async=True)
     help_handler = CommandHandler(BotCommands.HelpCommand, bot_help, run_async=True)
     stats_handler = CommandHandler(BotCommands.StatsCommand,
@@ -331,6 +333,17 @@ def main():
     LOGGER.info(" Atrocious Mirror Bot Started!")
     if rss_session is not None:
         rss_session.start()
+
+    
+    LOGGER.info("Using long polling.")
+        updater.start_polling(timeout=15, read_latency=4, drop_pending_updates=True)
+
+    if len(argv) not in (1, 3, 4):
+        telethn.disconnect()
+    else:
+        telethn.run_until_disconnected()
+
+    updater.idle()
 
 if __name__ == "__main__":
     LOGGER.info("Starting Pyrogram")
