@@ -1,5 +1,7 @@
 # This repo is under modification. 
 
+# Dont use my drive token.pickle and credentials.json. Upload your own drive files. 
+
 ✳ Atrocious_Mirror_Bot.
 
 ✳ Before deploying you must need to collect all required config and token.pickle and credentials.json. 
