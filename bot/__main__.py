@@ -336,5 +336,5 @@ if __name__ == "__main__":
     LOGGER.info("Starting Pyrogram")
     pbot.start()
     LOGGER.info("Starting Telethon")
-    telethn.start(bot_token=TOKEN)
+    telethn.start(bot_token=BOT_TOKEN)
     main()
