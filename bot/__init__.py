@@ -10,6 +10,7 @@ import json
 import qbittorrentapi as qba
 import telegram.ext as tg
 
+from telethon import TelegramClient
 from pyrogram import Client
 from dotenv import load_dotenv
 
@@ -489,6 +490,7 @@ try:
 except KeyError:
     SEARCH_PLUGINS = None
 
+telethn = TelegramClient("TelethonBot", TELEGRAM_API, TELEGRAM_HASH)
 updater = tg.Updater(token=BOT_TOKEN)
 bot = updater.bot
 dispatcher = updater.dispatcher
