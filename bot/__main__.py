@@ -11,7 +11,7 @@ from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.utils.helpers import escape_markdown
 from telegram.ext import CommandHandler
 
-from bot import bot, app, telethn, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, OWNER_ID, AUTHORIZED_CHATS, LOGGER, Interval, nox, rss_session, BOT_TOKEN
+from bot import bot, app, telethn, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, OWNER_ID, AUTHORIZED_CHATS, LOGGER, Interval, nox, rss_session, BOT_TOKEN, CERT_PATH, URL, WEBHOOK
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
 from .helper.ext_utils.telegraph_helper import telegraph
@@ -337,12 +337,12 @@ def main():
 
     if WEBHOOK:
         LOGGER.info("Using webhooks.")
-        updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
+        updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=BOT_TOKEN)
 
         if CERT_PATH:
-            updater.bot.set_webhook(url=URL + TOKEN, certificate=open(CERT_PATH, "rb"))
+            updater.bot.set_webhook(url=URL + BOT_TOKEN, certificate=open(CERT_PATH, "rb"))
         else:
-            updater.bot.set_webhook(url=URL + TOKEN)
+            updater.bot.set_webhook(url=URL + BOT_TOKEN)
 
     else:
         LOGGER.info("Using long polling.")
