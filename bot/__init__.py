@@ -6,7 +6,6 @@ import subprocess
 import requests
 import socket
 import faulthandler
-import aria2p
 import json
 import qbittorrentapi as qba
 import telegram.ext as tg
@@ -62,8 +61,6 @@ if not os.path.exists('.netrc'):
     subprocess.run(["touch", ".netrc"])
 subprocess.run(["cp", ".netrc", "/root/.netrc"])
 subprocess.run(["chmod", "600", ".netrc"])
-subprocess.run(["chmod", "+x", "aria.sh"])
-subprocess.run(["./aria.sh"], shell=True)
 time.sleep(0.5)
 
 Interval = []
@@ -78,13 +75,6 @@ try:
 except KeyError:
     pass
 
-aria2 = aria2p.API(
-    aria2p.Client(
-        host="http://localhost",
-        port=6800,
-        secret="",
-    )
-)
 
 def get_client() -> qba.TorrentsAPIMixIn:
     return qba.Client(host="localhost", port=8090)
@@ -172,23 +162,6 @@ if USER_STRING_SESSION is not None:
 else:
     rss_session = None
 
-def aria2c_init():
-    try:
-        logging.info("Initializing Aria2c")
-        link = "https://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso.torrent"
-        aria2.add_uris([link], {'dir': DOWNLOAD_DIR})
-        time.sleep(3)
-        downloads = aria2.get_downloads()
-        time.sleep(30)
-        for download in downloads:
-            aria2.remove([download], force=True, files=True)
-    except Exception as e:
-        logging.error(f"Aria2c initializing error: {e}")
-        pass
-
-if not os.path.isfile(".restartmsg"):
-    threading.Thread(target=aria2c_init).start()
-    time.sleep(1)
 
 try:
     DB_URI = getConfig('DATABASE_URL')
