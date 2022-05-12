@@ -7,6 +7,7 @@ import subprocess
 
 from pyrogram import idle
 from sys import executable
+from sys import argv
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.utils.helpers import escape_markdown
 from telegram.ext import CommandHandler
