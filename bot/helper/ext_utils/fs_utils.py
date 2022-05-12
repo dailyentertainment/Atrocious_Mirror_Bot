@@ -228,4 +228,3 @@ def get_video_resolution(path):
     except Exception as e:
         LOGGER.error(f"get_video_resolution: {e}")
         return 480, 320
-
