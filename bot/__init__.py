@@ -144,6 +144,9 @@ try:
     AUTO_DELETE_MESSAGE_DURATION = int(getConfig('AUTO_DELETE_MESSAGE_DURATION'))
     TELEGRAM_API = getConfig('TELEGRAM_API')
     TELEGRAM_HASH = getConfig('TELEGRAM_HASH')
+    CERT_PATH = os.environ.get("CERT_PATH")
+    URL = os.environ.get("URL", "")  # Does not contain token
+    WEBHOOK = bool(os.environ.get("WEBHOOK", False))
 except KeyError as e:
     LOGGER.error("One or more env variables missing! Exiting now")
     exit(1)
