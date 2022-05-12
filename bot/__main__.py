@@ -12,7 +12,6 @@ from telegram.utils.helpers import escape_markdown
 from telegram.ext import CommandHandler
 
 from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, OWNER_ID, AUTHORIZED_CHATS, LOGGER, Interval, nox, rss_session
-from bot.helper.ext_utils import fs_utils
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
 from .helper.ext_utils.telegraph_helper import telegraph
@@ -157,31 +156,6 @@ def stats(update, context):
             f'<b>Memory Free:</b> {mem_a}\n'\
             f'<b>Memory Used:</b> {mem_u}\n'
     update.effective_message.reply_photo(Bot_Photo, stats, parse_mode=ParseMode.HTML)
-
-def restart(update, context):
-    restart_message = sendMessage("Restarting...", context.bot, update)
-    if Interval:
-        Interval[0].cancel()
-    alive.kill()
-    process = psutil.Process(web.pid)
-    for proc in process.children(recursive=True):
-        proc.kill()
-    process.kill()
-    fs_utils.clean_all()
-    subprocess.run(["python3", "update.py"])
-    # Save restart message object in order to reply to it after restarting
-    nox.kill()
-    with open(".restartmsg", "w") as f:
-        f.truncate(0)
-        f.write(f"{restart_message.chat.id}\n{restart_message.message_id}\n")
-    os.execl(executable, executable, "-m", "bot")
-
-
-def ping(update, context):
-    start_time = int(round(time.time() * 1000))
-    reply = sendMessage("Starting Ping", context.bot, update)
-    end_time = int(round(time.time() * 1000))
-    editMessage(f'{end_time - start_time} ms', reply)
 
 
 def log(update, context):
@@ -345,7 +319,6 @@ def main():
     dispatcher.add_handler(log_handler)
     updater.start_polling(drop_pending_updates=IGNORE_PENDING_REQUESTS)
     LOGGER.info(" Atrocious Mirror Bot Started!")
-    signal.signal(signal.SIGINT, fs_utils.exit_clean_up)
     if rss_session is not None:
         rss_session.start()
 
