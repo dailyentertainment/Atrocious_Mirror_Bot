@@ -78,6 +78,14 @@ except KeyError:
     pass
 
 
+aria2 = aria2p.API(
+    aria2p.Client(
+        host="http://localhost",
+        port=6800,
+        secret="",
+    )
+)
+
 def get_client() -> qba.TorrentsAPIMixIn:
     return qba.Client(host="localhost", port=8090)
 
@@ -167,6 +175,25 @@ if USER_STRING_SESSION is not None:
     rss_session = Client(USER_STRING_SESSION, api_id=int(TELEGRAM_API), api_hash=TELEGRAM_HASH)
 else:
     rss_session = None
+
+
+def aria2c_init():
+    try:
+        logging.info("Initializing Aria2c")
+        link = "https://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso.torrent"
+        aria2.add_uris([link], {'dir': DOWNLOAD_DIR})
+        time.sleep(3)
+        downloads = aria2.get_downloads()
+        time.sleep(30)
+        for download in downloads:
+            aria2.remove([download], force=True, files=True)
+    except Exception as e:
+        logging.error(f"Aria2c initializing error: {e}")
+        pass
+
+if not os.path.isfile(".restartmsg"):
+    threading.Thread(target=aria2c_init).start()
+    time.sleep(1)
 
 
 try:
@@ -500,29 +527,3 @@ updater = tg.Updater(token=BOT_TOKEN)
 bot = updater.bot
 dispatcher = updater.dispatcher
 job_queue = updater.job_queue
-
-aria2 = aria2p.API(
-    aria2p.Client(
-        host="http://localhost",
-        port=6800,
-        secret="",
-    )
-)
-
-def aria2c_init():
-    try:
-        logging.info("Initializing Aria2c")
-        link = "https://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso.torrent"
-        aria2.add_uris([link], {'dir': DOWNLOAD_DIR})
-        time.sleep(3)
-        downloads = aria2.get_downloads()
-        time.sleep(30)
-        for download in downloads:
-            aria2.remove([download], force=True, files=True)
-    except Exception as e:
-        logging.error(f"Aria2c initializing error: {e}")
-        pass
-
-if not os.path.isfile(".restartmsg"):
-    threading.Thread(target=aria2c_init).start()
-    time.sleep(1)
