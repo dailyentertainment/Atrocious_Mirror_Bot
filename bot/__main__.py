@@ -11,7 +11,6 @@ from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.utils.helpers import escape_markdown
 from telegram.ext import CommandHandler
 
-from wserver import start_server_async
 from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, OWNER_ID, AUTHORIZED_CHATS, LOGGER, Interval, nox, rss_session
 from bot.helper.ext_utils import fs_utils
 from bot.helper.telegram_helper.bot_commands import BotCommands
@@ -20,7 +19,7 @@ from .helper.ext_utils.telegraph_helper import telegraph
 from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time
 from .helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper import button_build
-from .modules import authorize, list, cancel_mirror, mirror_status, clone, watch, delete, count, leech_settings, search
+from .modules import authorize, list, cancel_mirror, mirror_status, mirror, clone, watch, shell, eval, delete, speedtest, count, leech_settings, search, rss
 
 
 Bot_Photo = "https://telegra.ph/file/c06d92681208824918821.jpg"
@@ -326,23 +325,6 @@ botcmds = [
         (f'{BotCommands.HelpCommand}','Get detailed help')
     ]
 
-def main():
-    # bot.set_my_commands(botcmds)
-    fs_utils.start_cleanup()
-    if IS_VPS:
-        asyncio.new_event_loop().run_until_complete(start_server_async(PORT))
-    # Check if the bot is restarting
-    if os.path.isfile(".restartmsg"):
-        with open(".restartmsg") as f:
-            chat_id, msg_id = map(int, f)
-        bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
-        os.remove(".restartmsg")
-    elif OWNER_ID:
-        try:
-            text = "<b>Atrocious Mirror Bot Restarted!</b>"
-            bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML) 
-        except Exception as e:
-            LOGGER.warning(e)
 
     start_handler = CommandHandler(BotCommands.StartCommand, start, run_async=True)
     ping_handler = CommandHandler(BotCommands.PingCommand, ping,
