@@ -20,7 +20,7 @@ from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_tim
 from bot.helper.ext_utils import fs_utils
 from .helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper import button_build
-from .modules import authorize, list, clone, delete, count, leech_settings, search, shell, eval, tg_to_tf_uploader, mirror
+from .modules import authorize, list, clone, delete, count, leech_settings, search, shell, eval, tg_to_tf_uploader
 
 
 Bot_Photo = "https://telegra.ph/file/c06d92681208824918821.jpg"
