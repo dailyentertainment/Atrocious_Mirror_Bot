@@ -183,8 +183,7 @@ else:
 def aria2c_init():
     try:
         logging.info("Initializing Aria2c")
-        link = "https://releases.ubuntu.com/21.10/ubuntu-21.10-desktop-amd64.iso.torrent"
-        aria2.add_uris([link], {'dir': DOWNLOAD_DIR})
+        link = ""
         time.sleep(3)
         downloads = aria2.get_downloads()
         time.sleep(30)
